@@ -10,7 +10,7 @@ To get started:
 
 ## 1. Clone this repo
 
-```
+```bash
 git clone https://github.com/codingforentrepreneurs/terraforming-kubernetes-rapid
 cd terraforming-kubernetes-rapid
 ```
@@ -19,45 +19,53 @@ Create an account on [Linode](https://www.linode.com/cfe) and get an API Key in 
 
 Once you have a key, do the following:
 
-```
+```bash
 echo 'linode_api_token="YOUR_API_KEY"' >> terraform.tfvars
 ```
 
 ## 2. Initialize Terraform
 
-```
+```bash
 terraform init
 ```
 
 ## 3. Terraform your Kubernetes Cluster
-```
+```bash
 terraform apply
 ```
+> Use `terraform apply -auto-approve` if you're really in a hurry.
 
 ## 4. Set your `KUBECONFIG` Environment Variable
 
-```
-export KUBECONFIG="./kube/kubeconfig.yaml"
+```bash
+export KUBECONFIG="./.kube/kubeconfig.yaml"
 ```
 > If you are using VSCode, the `KUBECONFIG` variable is set in `tf-k8s.code-workspace` settings.
 
+Verify your `KUBECONFIG` is set correctly:
+
+```bash
+kubectl get nodes
+```
 
 ## 5. Deploy your first app
 
-```
+```bash
 kubectl apply -f k8s.yaml
 ```
 
 ## 6. Get your app's IP address
 
-```
+```bash
 kubectl get service cfe-nginx-service -o "jsonpath={.status.loadBalancer.ingress[0].ip}"
 ```
 
 Or
 ```
-IP_ADDRESS=$(kubectl get service cfe-nginx-service -o "jsonpath={.status.loadBalancer.ingress[0].ip}")
+export IP_ADDRESS=$(kubectl get service cfe-nginx-service -o "jsonpath={.status.loadBalancer.ingress[0].ip}")
 open http://$IP_ADDRESS
 ```
 
 ## 7. Celebrate
+
+_P.S._ Destroy everything with `terraform apply -destroy -auto-approve` to avoid incurring any charges.
