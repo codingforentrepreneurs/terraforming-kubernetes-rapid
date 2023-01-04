@@ -5,7 +5,6 @@ terraform {
             source = "linode/linode"
         }
     }
-     backend "s3" {}
 }
 
 provider "linode" {
@@ -25,8 +24,8 @@ variable "linode_api_token" {
 
 resource "linode_lke_cluster" "terraform_k8s" {
     k8s_version="1.24"
-    k8s_label="terraform-k8s"
-    k8s_region="us-east"
+    label="terraform-k8s"
+    region="us-east"
     tags=["terraform-k8s"]
     pool {
         type  = "g6-standard-1"
@@ -36,7 +35,7 @@ resource "linode_lke_cluster" "terraform_k8s" {
 }
 
 resource "local_file" "k8s_config" {
-    content = "${nonsensitive(base64decode(linode_lke_cluster.terraformk8s.kubeconfig))}"
+    content = "${nonsensitive(base64decode(linode_lke_cluster.terraform_k8s.kubeconfig))}"
     filename = "${local.k8s_config_file}"
     file_permission = "0600"
 }
