@@ -51,7 +51,13 @@ kubectl apply -f k8s.yaml
 ## 6. Get your app's IP address
 
 ```
-KUBECONFIG="./kube/kubeconfig.yaml" kubectl get service cfe-nginx-service -o "jsonpath={.status.loadBalancer.ingress[0].ip}"
+kubectl get service cfe-nginx-service -o "jsonpath={.status.loadBalancer.ingress[0].ip}"
+```
+
+Or
+```
+IP_ADDRESS=$(kubectl get service cfe-nginx-service -o "jsonpath={.status.loadBalancer.ingress[0].ip}")
+open http://$IP_ADDRESS
 ```
 
 ## 7. Celebrate
