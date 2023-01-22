@@ -20,7 +20,7 @@ Create an account on [Linode](https://www.linode.com/cfe) and get an API Key in 
 Once you have a key, do the following:
 
 ```bash
-echo 'linode_api_token="YOUR_API_KEY"' >> terraform.tfvars
+echo "linode_api_token=\"YOUR_API_KEY\"" >> terraform.tfvars
 ```
 
 ## 2. Initialize Terraform
