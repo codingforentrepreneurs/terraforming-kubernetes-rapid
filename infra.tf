@@ -23,7 +23,7 @@ variable "linode_api_token" {
 }
 
 resource "linode_lke_cluster" "terraform_k8s" {
-    k8s_version="1.24"
+    k8s_version="1.25"
     label="terraform-k8s"
     region="us-east"
     tags=["terraform-k8s"]
